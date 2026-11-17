@@ -20,9 +20,13 @@ A standalone tool to install Middle East (MES) offline maps on imported Hyundai,
 1. **Target Vehicle**:
    - Hyundai / Kia / Genesis with a Gen5W head unit (e.g. Palisade, Tucson NX4, Sonata DN8, GV70/GV80, etc.).
    - NEMESIS sideloading environment installed on the head unit.
-2. **USB Flash Drive**:
+2. **Region Configuration**:
+   - Navigation maps require the head unit region to match the map region. For Middle East maps (`MES`), the system region must be `ME`.
+   - If your imported vehicle is still on its original region (e.g., Korean `KR` or North American `USA`), you must convert the unit's region first. A complete package to convert Gen5W units to the Middle East region with Arabic language support is available here:
+     👉 **[Gen5W_AR by abdullahO2](https://github.com/abdullahO2/Gen5W_AR)**
+3. **USB Flash Drive**:
    - At least 16 GB capacity, formatted as FAT32 or exFAT.
-3. **Official Map Files**:
+4. **Official Map Files**:
    - Downloaded official Middle East map update folder containing `sw_backup.tar` and `navi_backup.tar*`.
 
 ---
@@ -50,6 +54,12 @@ A standalone tool to install Middle East (MES) offline maps on imported Hyundai,
 ---
 
 ## دليل الاستخدام السريع (باللغة العربية)
+
+> [!IMPORTANT]
+> **تنبيه هام حول منطقة النظام (Region):**
+> تعمل الخرائط بحسب منطقة النظام المحددة في الشاشة؛ فمثلاً خرائط الشرق الأوسط تتطلب أن تكون منطقة الشاشة محددة على الشرق الأوسط (`ME`). إذا كانت سيارتك مستوردة وما زالت على منطقتها الأصلية (مثل كوريا `KR` أو أمريكا `USA`)، فيجب تحويل منطقة الشاشة أولاً لتفعيل الخرائط واللغة العربية.
+> تتوفر حزمة متكاملة للتحويل للشرق الأوسط والتعريب هنا:
+> 👉 **[مستودع Gen5W_AR بواسطة abdullahO2](https://github.com/abdullahO2/Gen5W_AR)**
 
 ### الخطوة الأولى: تجهيز الفلاشة على الكمبيوتر
 1. ضع ملف `Build_Nemesis_USB.bat` في المجلد الذي يحتوي على ملفات خرائط الشرق الأوسط المحملة رسمياً (`sw_backup.tar` وملفات `navi_backup.tar`).
