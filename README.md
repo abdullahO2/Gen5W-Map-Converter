@@ -27,7 +27,29 @@ A standalone tool to install Middle East (MES) offline maps on imported Hyundai,
 3. **USB Flash Drive**:
    - At least 16 GB capacity, formatted as FAT32 or exFAT.
 4. **Official Map Files**:
-   - Downloaded official Middle East map update folder containing `sw_backup.tar` and `navi_backup.tar*`.
+   - Downloaded Middle East map update folder containing `sw_backup.tar` and `navi_backup.tar*` (see below for download methods).
+
+---
+
+## How to Obtain Map Files
+
+### Method 1: Official Navigation Updater (Recommended)
+- **Hyundai**: [update.hyundai.com](https://update.hyundai.com)
+- **Kia**: [update.kia.com](https://update.kia.com)
+
+Download the official updater software for Windows, select your vehicle model (Middle East region), and download the update files.
+
+> [!NOTE]
+> If your vehicle was originally from domestic regions like South Korea, the official updater may restrict access from outside the region. To bypass this:
+> - Use a South Korean VPN during download.
+> - Or use **Method 2** below without requiring a VPN.
+
+### Method 2: Via `nudl` Downloader (Fast Alternative for Imported Vehicles)
+1. On your vehicle screen, check your current firmware / model string from: `⚙️ General Settings > SW Info`.
+2. Download the `nudl` tool for Windows:
+   - GitHub Releases: [chenxiaolong/nudl](https://github.com/chenxiaolong/nudl/releases)
+   - Direct Windows Download: [nudl-1.3.0-x86_64-pc-windows-msvc.zip](https://github.com/chenxiaolong/nudl/releases/download/v1.3.0/nudl-1.3.0-x86_64-pc-windows-msvc.zip)
+3. Use `nudl` to fetch the Middle East firmware package directly.
 
 ---
 
@@ -60,6 +82,28 @@ A standalone tool to install Middle East (MES) offline maps on imported Hyundai,
 > تعمل الخرائط بحسب منطقة النظام المحددة في الشاشة؛ فمثلاً خرائط الشرق الأوسط تتطلب أن تكون منطقة الشاشة محددة على الشرق الأوسط (`ME`). إذا كانت سيارتك مستوردة وما زالت على منطقتها الأصلية (مثل كوريا `KR` أو أمريكا `USA`)، فيجب تحويل منطقة الشاشة أولاً لتفعيل الخرائط واللغة العربية.
 > تتوفر حزمة متكاملة للتحويل للشرق الأوسط والتعريب هنا:
 > 👉 **[مستودع Gen5W_AR بواسطة abdullahO2](https://github.com/abdullahO2/Gen5W_AR)**
+
+### طرق الحصول على ملفات الخرائط:
+
+#### الطريقة الأولى: عبر المواقع والبرامج الرسمية (الأسهل والأضمن)
+• **لهيونداي**: [update.hyundai.com](https://update.hyundai.com)  
+• **لكيا**: [update.kia.com](https://update.kia.com)  
+حمّل برنامج التحديث الرسمي للكمبيوتر، واختر موديل سيارتك وسيقوم بالتحميل تلقائياً.
+
+> [!NOTE]
+> **ملاحظة للسيارات من مناطق معينة مثل كوريا:**  
+> عند محاولة تحديد المنطقة (Korea) وأنت خارجها سيرفض البرنامج، ولن يسمح لك الموقع بالتحميل لتلك المنطقة، ولتجاوز ذلك:  
+> • استخدم برنامج VPN بدولة كوريا الجنوبية أثناء التحميل.  
+> • أو انتقل إلى **الطريقة الثانية** مباشرة دون الحاجة لـ VPN.
+
+#### الطريقة الثانية: عبر أداة `nudl` (الأفضل للسيارات المستوردة والبديل الأسرع)
+1. اذهب لشاشة سيارتك واعرف رقم الإصدار الحالي والموديل من: `⚙️ General Settings > SW Info`.
+2. حمّل أداة `nudl` من الرابط التالي:  
+   🔗 [chenxiaolong/nudl Releases](https://github.com/chenxiaolong/nudl/releases)  
+   رابط مباشر لنسخة ويندوز الحالية: [nudl-1.3.0-x86_64-pc-windows-msvc.zip](https://github.com/chenxiaolong/nudl/releases/download/v1.3.0/nudl-1.3.0-x86_64-pc-windows-msvc.zip)
+3. قم بتشغيل الأداة وتحميل ملفات تحديث الشرق الأوسط المناسبة لسيارتك.
+
+---
 
 ### الخطوة الأولى: تجهيز الفلاشة على الكمبيوتر
 1. ضع ملف `Build_Nemesis_USB.bat` في المجلد الذي يحتوي على ملفات خرائط الشرق الأوسط المحملة رسمياً (`sw_backup.tar` وملفات `navi_backup.tar`).
