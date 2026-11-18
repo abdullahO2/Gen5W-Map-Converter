@@ -2,7 +2,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
 pushd "%~dp0"
-title Hyundai / Kia / Genesis Gen5W Cross-Region Map Updater Creator v5.2 (Universal Standalone Script)
+title Hyundai / Kia / Genesis Gen5W Cross-Region Map Updater Creator v5.3 (Universal Standalone Script)
 color 0B
 
 :: ============================================================================
@@ -35,7 +35,7 @@ set "PSH=powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%NEM_PS%""
 
 echo ==============================================================================
 echo   Hyundai / Kia / Genesis Gen5W Cross-Region Map Updater Creator
-echo   Universal Standalone Installer (v5.2 - Any Region Support)
+echo   Universal Standalone Installer (v5.3 - Any Region Support)
 echo ==============================================================================
 echo.
 
@@ -379,7 +379,7 @@ exit /b 0
 :: ----- Car-side standalone update.sh, Unix LF endings applied on extraction (::SH:) -----
 ::SH:#!/system/bin/sh
 ::SH:# ==============================================================================
-::SH:#   Gen5W Cross-Region Map Standalone Updater v5.2
+::SH:#   Gen5W Cross-Region Map Standalone Updater v5.3
 ::SH:#   Direct USB Script Execution (type=execute) - No Package Installation Needed
 ::SH:# ==============================================================================
 ::SH:export PATH=/data/nemesis/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
@@ -406,7 +406,26 @@ exit /b 0
 ::SH:
 ::SH:MAP_SRC="$USB_ROOT/navi"
 ::SH:LOGFILE="$USB_ROOT/map_update.log"
-::SH:NAVI="/storage/navi"
+::SH:SLOT_CFG="/oem_data/map_index.cfg"
+::SH:slot_dir() { if [ "$1" = "1" ]; then echo /storage/navi2; else echo /storage/navi; fi; }
+::SH:set_slot() {   # $1 = 0 | 1
+::SH:    echo -n "$1" > "$SLOT_CFG" 2>/dev/null
+::SH:    chmod 666 "$SLOT_CFG" 2>/dev/null
+::SH:    sync
+::SH:}
+::SH:
+::SH:# A/B maps: install into the INACTIVE slot so the working map stays as a fallback,
+::SH:# and only switch /oem_data/map_index.cfg after the copy has been verified.
+::SH:HAVE_NAVI2=0
+::SH:while read dev mp rest; do
+::SH:    [ "$mp" = "/storage/navi2" ] && HAVE_NAVI2=1
+::SH:done < /proc/mounts
+::SH:CURRENT_SLOT=$(cat "$SLOT_CFG" 2>/dev/null)
+::SH:[ "$CURRENT_SLOT" = "1" ] || CURRENT_SLOT=0
+::SH:ACTIVE_NAVI=$(slot_dir "$CURRENT_SLOT")
+::SH:TARGET_SLOT=0
+::SH:if [ "$CURRENT_SLOT" = "0" ] && [ "$HAVE_NAVI2" -eq 1 ]; then TARGET_SLOT=1; fi
+::SH:NAVI=$(slot_dir "$TARGET_SLOT")
 ::SH:RW_DONE=0
 ::SH:
 ::SH:# Real-time sync logging directly to USB drive
@@ -427,7 +446,7 @@ exit /b 0
 ::SH:log "=== [START] Map update initiated at $(date) ==="
 ::SH:log "[INFO] USB Root: $USB_ROOT"
 ::SH:log "[INFO] Map Source: $MAP_SRC"
-::SH:log "[INFO] Target Partition: $NAVI"
+::SH:log "[INFO] Target Partition: $NAVI (slot $TARGET_SLOT, active slot is $CURRENT_SLOT = $ACTIVE_NAVI)"
 ::SH:
 ::SH:# --- Dynamic Block Device Detection from /proc/mounts ---
 ::SH:NAVI_DEV=""
@@ -471,30 +490,73 @@ exit /b 0
 ::SH:fi
 ::SH:log "[INFO] USB Map Package Build ID: $NEW_ID"
 ::SH:
-::SH:# 3. Check existing installation integrity on head unit
+::SH:# 2b. Region guard: the installed navigation app only reads maps of its own region
+::SH:# (e.g. the US "STD5W.NAM" app needs NAM; a MES map gives "DBLoadFail / map cannot be displayed").
+::SH:map_region() {   # $1 = dir; prints the region prefix of "<REGION>.xx.xx...md5" (ignores BIN.md5)
+::SH:    for f in "$1"/*.md5; do
+::SH:        [ -f "$f" ] || continue
+::SH:        b="${f##*/}"
+::SH:        [ "$b" = "BIN.md5" ] && continue
+::SH:        echo "${b%%.*}"
+::SH:        return
+::SH:    done
+::SH:}
+::SH:PKG_REGION=$(map_region "$MAP_SRC")
+::SH:# The app derives its nation from ro.product.locale.region (US/CA -> NAM, ME -> MES); fall back to the installed maps.
+::SH:SYS_REGION=$(getprop ro.product.locale.region 2>/dev/null)
+::SH:case "$SYS_REGION" in
+::SH:    US|CA) UNIT_REGION="NAM" ;;
+::SH:    ME) UNIT_REGION="MES" ;;
+::SH:    *) UNIT_REGION="" ;;
+::SH:esac
+::SH:[ -n "$UNIT_REGION" ] || UNIT_REGION=$(map_region "$ACTIVE_NAVI")
+::SH:[ -n "$UNIT_REGION" ] || UNIT_REGION=$(map_region "$(slot_dir 1)")
+::SH:[ -n "$UNIT_REGION" ] || UNIT_REGION=$(map_region "$(slot_dir 0)")
+::SH:REGION_NAME="${PKG_REGION:-Map}"
+::SH:log "[INFO] System region: ${SYS_REGION:-unknown} | Package map region: ${PKG_REGION:-unknown} | Region this unit can read: ${UNIT_REGION:-unknown}"
+::SH:if [ -n "$PKG_REGION" ] && [ -n "$UNIT_REGION" ] && [ "$PKG_REGION" != "$UNIT_REGION" ]; then
+::SH:    if [ -f "$USB_ROOT/FORCE_REGION" ]; then
+::SH:        log "[WARN] Region mismatch ($PKG_REGION vs $UNIT_REGION) ignored because FORCE_REGION exists on the USB."
+::SH:    else
+::SH:        log "[ERROR] Region mismatch: this unit reads $UNIT_REGION maps (system region ${SYS_REGION:-unknown}) but the package is $PKG_REGION."
+::SH:        log "[ERROR] Installing it would leave the navigation app with 'map cannot be displayed'. Nothing was changed."
+::SH:        log "[ERROR] Set the unit region first: ro.product.locale.region must be ME for MES maps in BOTH /system/build.prop and /system/onebin/<ro.mobis.onebindir>/mobis.prop (see README),"
+::SH:        log "[ERROR] or create an empty FORCE_REGION file on the USB to override."
+::SH:        toast "Error: map region $PKG_REGION does not match this unit ($UNIT_REGION). Nothing changed."
+::SH:        finish 5
+::SH:    fi
+::SH:fi
+::SH:
+::SH:# 3. Check existing installation integrity on head unit (active slot first, then target slot)
 ::SH:COMPLETE_MARKER="$NAVI/MAP_INSTALL_COMPLETE"
 ::SH:IS_ALREADY_INSTALLED=0
-::SH:
-::SH:if [ -f "$COMPLETE_MARKER" ]; then
-::SH:    INSTALLED_ID=$(cat "$COMPLETE_MARKER" 2>/dev/null)
-::SH:    log "[INFO] Found completed installation marker. Installed ID: $INSTALLED_ID"
-::SH:    # Verify that files actually exist and are complete
-::SH:    if [ -d "$NAVI/DATA/COMMON" ] && [ -d "$NAVI/DATA/NATION" ] && [ -d "$NAVI/BIN" ]; then
-::SH:        for f in "$NAVI"/*.md5; do
-::SH:            if [ -f "$f" ]; then
+::SH:INSTALLED_SLOT=""
+::SH:for S in "$CURRENT_SLOT" "$TARGET_SLOT"; do
+::SH:    SD=$(slot_dir "$S")
+::SH:    if [ -f "$SD/MAP_INSTALL_COMPLETE" ] && [ -d "$SD/DATA/COMMON" ] && [ -d "$SD/DATA/NATION" ] && [ -d "$SD/BIN" ]; then
+::SH:        INSTALLED_ID=$(cat "$SD/MAP_INSTALL_COMPLETE" 2>/dev/null)
+::SH:        log "[INFO] Found completed installation marker in $SD. Installed ID: $INSTALLED_ID"
+::SH:        for f in "$SD"/*.md5; do
+::SH:            if [ -f "$f" ] && [ "$INSTALLED_ID" = "$NEW_ID" ]; then
 ::SH:                IS_ALREADY_INSTALLED=1
-::SH:                break
+::SH:                INSTALLED_SLOT="$S"
 ::SH:            fi
+::SH:            break
 ::SH:        done
+::SH:        [ "$IS_ALREADY_INSTALLED" -eq 1 ] && break
 ::SH:    fi
-::SH:else
-::SH:    # Marker is missing! Check if partial files exist from an interrupted install
-::SH:    if [ -d "$NAVI/DATA" ] || [ -d "$NAVI/BIN" ]; then
+::SH:done
+::SH:
+::SH:if [ "$IS_ALREADY_INSTALLED" -eq 0 ]; then
+::SH:    if [ -f "$COMPLETE_MARKER" ]; then
+::SH:        log "[INFO] Target slot has a different map build; it will be replaced."
+::SH:    elif [ -d "$NAVI/DATA" ] || [ -d "$NAVI/BIN" ]; then
+::SH:        # Marker is missing! Check if partial files exist from an interrupted install
 ::SH:        log "[WARN] Incomplete or interrupted previous installation detected (MAP_INSTALL_COMPLETE missing)!"
 ::SH:        log "[WARN] The car was likely turned off during a previous update attempt."
 ::SH:        log "[INFO] A clean reinstall will be performed automatically..."
 ::SH:    else
-::SH:        log "[INFO] No previous map found (first-time installation)."
+::SH:        log "[INFO] No previous map found in the target slot (first-time installation)."
 ::SH:    fi
 ::SH:fi
 ::SH:
@@ -503,27 +565,15 @@ exit /b 0
 ::SH:    IS_ALREADY_INSTALLED=0
 ::SH:fi
 ::SH:
-::SH:if [ "$IS_ALREADY_INSTALLED" -eq 1 ] && [ "$INSTALLED_ID" = "$NEW_ID" ]; then
-::SH:    log "[INFO] This exact map package ($REGION_NAME) is ALREADY completely installed and verified."
+::SH:if [ "$IS_ALREADY_INSTALLED" -eq 1 ]; then
+::SH:    log "[INFO] This exact map package ($REGION_NAME) is ALREADY completely installed and verified (slot $INSTALLED_SLOT)."
 ::SH:    log "[INFO] Skipping file copy (preserving flash memory)."
 ::SH:    toast "$REGION_NAME Map is already up to date!"
-::SH:    
-::SH:    # Ensure symlink and permissions are intact
-::SH:    remount_navi rw 2>/dev/null
-::SH:    rm -f "$NAVI/navi" 2>/dev/null
-::SH:    ln -s "$NAVI" "$NAVI/navi" 2>/dev/null
-::SH:    chmod -R 777 "$NAVI" 2>/dev/null
-::SH:    remount_navi ro 2>/dev/null
-::SH:    
-::SH:    # Ensure active slot is set to 0 (/storage/navi) for dual A/B partition head units
-::SH:    if [ -d "/oem_data" ]; then
-::SH:        CURRENT_SLOT=$(cat /oem_data/map_index.cfg 2>/dev/null)
-::SH:        if [ "$CURRENT_SLOT" != "0" ]; then
-::SH:            log "[INFO] Switching active map slot from '$CURRENT_SLOT' to '0' in /oem_data/map_index.cfg..."
-::SH:            echo -n "0" > /oem_data/map_index.cfg 2>/dev/null
-::SH:            chmod 666 /oem_data/map_index.cfg 2>/dev/null
-::SH:            sync
-::SH:        fi
+::SH:
+::SH:    # Make sure the unit is actually booting from the slot that holds this map
+::SH:    if [ -d "/oem_data" ] && [ "$CURRENT_SLOT" != "$INSTALLED_SLOT" ]; then
+::SH:        log "[INFO] Switching active map slot from '$CURRENT_SLOT' to '$INSTALLED_SLOT' in $SLOT_CFG..."
+::SH:        set_slot "$INSTALLED_SLOT"
 ::SH:    fi
 ::SH:    
 ::SH:    if [ -f "$USB_ROOT/NEMESIS.data" ]; then
@@ -617,18 +667,16 @@ exit /b 0
 ::SH:remount_navi ro
 ::SH:RW_DONE=0
 ::SH:
-::SH:# 10b. Configure active navigation slot in /oem_data/map_index.cfg (Dual A/B partition support)
+::SH:# 10b. Switch the active navigation slot only now that the new map is fully copied and verified
 ::SH:if [ -d "/oem_data" ]; then
-::SH:    CURRENT_SLOT=$(cat /oem_data/map_index.cfg 2>/dev/null)
-::SH:    log "[INFO] Active navigation slot check: /oem_data/map_index.cfg = '${CURRENT_SLOT:-<none>}'"
-::SH:    if [ "$CURRENT_SLOT" != "0" ]; then
-::SH:        log "[INFO] Switching active map slot from '$CURRENT_SLOT' to '0' (/storage/navi) in /oem_data/map_index.cfg..."
-::SH:        echo -n "0" > /oem_data/map_index.cfg 2>/dev/null
-::SH:        chmod 666 /oem_data/map_index.cfg 2>/dev/null
-::SH:        sync
-::SH:        log "[INFO] Active map slot successfully switched to 0 (/storage/navi)."
+::SH:    log "[INFO] Active navigation slot check: $SLOT_CFG = '$CURRENT_SLOT'"
+::SH:    if [ "$CURRENT_SLOT" != "$TARGET_SLOT" ]; then
+::SH:        log "[INFO] Switching active map slot from '$CURRENT_SLOT' to '$TARGET_SLOT' ($NAVI)..."
+::SH:        set_slot "$TARGET_SLOT"
+::SH:        log "[INFO] Active map slot is now $TARGET_SLOT. Previous map in slot $CURRENT_SLOT ($ACTIVE_NAVI) was left untouched as a fallback."
+::SH:        log "[INFO] To roll back: write $CURRENT_SLOT into $SLOT_CFG and reboot."
 ::SH:    else
-::SH:        log "[INFO] Active map slot is already 0 (/storage/navi)."
+::SH:        log "[INFO] Active map slot is already $TARGET_SLOT ($NAVI)."
 ::SH:    fi
 ::SH:fi
 ::SH:

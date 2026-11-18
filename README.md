@@ -134,7 +134,9 @@ You will need official map update files containing `sw_backup.tar` and `navi_bac
 ## Technical Details
 
 - **Target Path**: Installs map database under `/storage/navi/DATA/NATION/<REGION_CODE>`.
-- **Partition Sync**: Automatically configures `/oem_data/map_index.cfg` to `0` to ensure the navigation engine binds to partition slot 0 (`/storage/navi`).
+- **Partition Sync**: Installs into the *inactive* A/B slot (`/storage/navi` = 0, `/storage/navi2` = 1) and only then sets `/oem_data/map_index.cfg` to that slot. The previously active map is left untouched as a fallback; to roll back, write the old slot number into `map_index.cfg` and reboot.
+- **Region Guard**: The package region (prefix of `<REGION>.xx...md5`) must match the region the unit reads, taken from `ro.product.locale.region` (`US`/`CA` = `NAM`, `ME` = `MES`; other values fall back to the maps already installed). A US `NAM` unit cannot use a `MES` map: the app reports `DBLoadFail` / "map cannot be displayed". On mismatch nothing is changed; put an empty `FORCE_REGION` file on the USB to override.
+- **Middle East note**: Some units re-apply `ro.product.locale.region` at boot from `/system/onebin/<ro.mobis.onebindir>/mobis.prop` (e.g. `cn7n_us`), overriding `/system/build.prop`. For MES maps the region must be `ME` in both files (`getprop ro.product.locale.region` must print `ME` after reboot).
 - **Permissions**: Enforces `0777` permissions and clears the navigation package cache (`pm clear com.mnsoft.navi`) upon finalization.
 
 ---
