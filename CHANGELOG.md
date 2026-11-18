@@ -2,6 +2,13 @@
 
 All notable changes to the Gen5W Map Converter project are documented here.
 
+## [v5.2] - 2026-11-18
+### Added
+- **Universal Region Support**: Automatically detects and installs navigation map packages of any target region (Middle East, USA, Europe, Russia, Australia, Korea, etc.).
+- Dynamic region code detection from `DATA/NATION/*` with customized log outputs and on-screen toast notifications.
+- Generalized USB output package folder (`Gen5W_Map_USB_Ready`).
+- Complete documentation on region matching and download methods (Official Navigation Updater & `nudl`).
+
 ## [v5.1] - 2026-11-18
 ### Added
 - Bilingual popup dialogs (Arabic and English) for compatibility across languages.

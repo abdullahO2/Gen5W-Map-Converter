@@ -2,7 +2,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
 pushd "%~dp0"
-title Hyundai / Kia / Genesis Gen5W Middle East Map Updater Creator v5.0 (Standalone Script)
+title Hyundai / Kia / Genesis Gen5W Cross-Region Map Updater Creator v5.2 (Universal Standalone Script)
 color 0B
 
 :: ============================================================================
@@ -22,20 +22,20 @@ set "ERR_TAR_MSG=2K7Yt9ijOiDYo9iv2KfYqSDYp9mE2KfYs9iq2K7Ysdin2KwgKHRhci5leGUpINi
 set "ERR_PERM_TITLE=2KrYudiw2LEg2KfZhNmD2KrYp9io2Kkg2YHZiiDYp9mE2YXYrNmE2K8gLyBXcml0ZSBQZXJtaXNzaW9uIEVycm9y"
 set "ERR_PERM_MSG=2K7Yt9ijOiDZhNinINmK2YXZg9mGINin2YTZg9iq2KfYqNipINij2Ygg2KXZhti02KfYoSDZhdis2YTYr9in2Kog2YHZiiDZh9iw2Kcg2KfZhNmF2LPYp9ixIQoK2KrYo9mD2K8g2YXZhiDYo9mGINin2YTZhdis2YTYryDYutmK2LEg2YXYrdmF2Yog2LbYryDYp9mE2YPYqtin2KjYqdiMINij2Ygg2KfZhtmC2YQg2YXYrNmE2K8g2KfZhNiq2K3Yr9mK2Ksg2KXZhNmJINmF2LPYp9ixINii2K7YsSDZhdir2YQg2LPYt9itINin2YTZhdmD2KrYqCDYo9mIINin2YTZgtix2LUgQzpcLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KRXJyb3I6IENhbm5vdCB3cml0ZSBvciBjcmVhdGUgZm9sZGVycyBpbiB0aGlzIGxvY2F0aW9uIQoKTWFrZSBzdXJlIHRoZSBkaXJlY3RvcnkgaXMgbm90IHJlYWQtb25seSwgcnVuIGFzIEFkbWluaXN0cmF0b3IsIG9yIG1vdmUgdGhlIHVwZGF0ZSBmb2xkZXIgdG8gYSBkaWZmZXJlbnQgcGF0aCAoZS5nLiBEZXNrdG9wIG9yIEM6XCku"
 set "SUCCESS_TITLE=2KrZhSDYqNmG2KzYp9itISAvIFN1Y2Nlc3Mh"
-set "SUCCESS_MSG=2KfZg9iq2YXZhNiqINin2YTYudmF2YTZitipINio2YbYrNin2K0hCgrYqtmFINil2YbYtNin2KEg2K3YstmF2Kkg2KfZhNiu2LHYp9im2Lcg2YHZiiDYp9mE2YXYrNmE2K86CkdlbjVXX01FX1VTQl9SZWFkeQrZiNiq2YUg2YHYqtitINin2YTZhdis2YTYryDYo9mF2KfZhdmDINmB2Yog2YbYp9mB2LDYqSDYrNiv2YrYr9ipLgoK2KfZhtiz2K4g2KzZhdmK2Lkg2YXYrdiq2YjZitin2Kog2YfYsNinINin2YTZhdis2YTYryDZhdio2KfYtNix2Kkg2KXZhNmJINin2YTZgdmE2KfYtCDZhdmK2YXZiNix2YogKFVTQinYjCDZiNix2YPYqNmHINmB2Yog2LTYp9i02Kkg2KfZhNiz2YrYp9ix2Kkg2YTYqNiv2KEg2KfZhNiq2KvYqNmK2Kog2KfZhNiq2YTZgtin2KbZii4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClByb2Nlc3MgY29tcGxldGVkIHN1Y2Nlc3NmdWxseSEKClRoZSBVU0IgbWFwIHBhY2thZ2UgaGFzIGJlZW4gY3JlYXRlZCBpbjoKR2VuNVdfTUVfVVNCX1JlYWR5CmFuZCB0aGUgZm9sZGVyIGhhcyBiZWVuIG9wZW5lZCBmb3IgeW91LgoKQ29weSB0aGUgQ09OVEVOVFMgb2YgdGhpcyBmb2xkZXIgZGlyZWN0bHkgdG8gdGhlIHJvb3Qgb2YgYSBVU0IgZHJpdmUsIHRoZW4gcGx1ZyBpdCBpbnRvIHlvdXIgdmVoaWNsZSB0byBiZWdpbiBpbnN0YWxsYXRpb24u"
+set "SUCCESS_MSG=2KfZg9iq2YXZhNiqINin2YTYudmF2YTZitipINio2YbYrNin2K0hCgrYqtmFINil2YbYtNin2KEg2K3YstmF2Kkg2KfZhNiu2LHYp9im2Lcg2YHZiiDYp9mE2YXYrNmE2K86CkdlbjVXX01hcF9VU0JfUmVhZHkK2YjYqtmFINmB2KrYrSDYp9mE2YXYrNmE2K8g2KPZhdin2YXZgyDZgdmKINmG2KfZgdiw2Kkg2KzYr9mK2K/YqS4KCtin2YbYs9iuINis2YXZiti5INmF2K3YqtmI2YrYp9iqINmH2LDYpyDYp9mE2YXYrNmE2K8g2YXYqNin2LTYsdipINil2YTZiSDYp9mE2YHZhNin2LQg2YXZitmF2YjYsdmKIChVU0Ip2Iwg2YjYsdmD2KjZhyDZgdmKINi02KfYtNipINin2YTYs9mK2KfYsdipINmE2KjYr9ihINin2YTYqtir2KjZitiqINin2YTYqtmE2YLYp9im2YouCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQcm9jZXNzIGNvbXBsZXRlZCBzdWNjZXNzZnVsbHkhCgpUaGUgVVNCIG1hcCBwYWNrYWdlIGhhcyBiZWVuIGNyZWF0ZWQgaW46CkdlbjVXX01hcF9VU0JfUmVhZHkKYW5kIHRoZSBmb2xkZXIgaGFzIGJlZW4gb3BlbmVkIGZvciB5b3UuCgpDb3B5IHRoZSBDT05URU5UUyBvZiB0aGlzIGZvbGRlciBkaXJlY3RseSB0byB0aGUgcm9vdCBvZiBhIFVTQiBkcml2ZSwgdGhlbiBwbHVnIGl0IGludG8geW91ciB2ZWhpY2xlIHRvIGJlZ2luIGluc3RhbGxhdGlvbi4="
 set "ERR_SPACE_TITLE=2KfZhNmF2LPYp9it2Kkg2LrZitixINmD2KfZgdmK2KkgLyBJbnN1ZmZpY2llbnQgRGlzayBTcGFjZQ=="
 set "ERR_SPACE_MSG=2K7Yt9ijOiDYp9mE2YXYs9in2K3YqSDYp9mE2YXYqtio2YLZitipINi52YTZiSDYp9mE2YLYsdi1INi62YrYsSDZg9in2YHZitipINmE2YHZgyDYtti62Lcg2YXZhNmB2KfYqiDYp9mE2K7YsdmK2LfYqSEKCtin2YTZhdiz2KfYrdipINin2YTZhdi32YTZiNio2Kkg2YjYp9mE2YXYqtmI2YHYsdipINmF2YjYttit2Kkg2YHZiiDZhtin2YHYsNipINin2YTYo9mI2KfZhdixLgrZitix2KzZiSDYqtmB2LHZiti6INmF2LPYp9it2Kkg2KXYttin2YHZitipINi52YTZiSDZh9iw2Kcg2KfZhNmC2LHYtdiMINij2Ygg2YbZgtmEINin2YTZhdis2YTYryDYpdmE2Ykg2YLYsdi1INii2K7YsdiMINir2YUg2KXYudin2K/YqSDYqti02LrZitmEINin2YTZhdmE2YEuCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpFcnJvcjogTm90IGVub3VnaCBmcmVlIGRpc2sgc3BhY2UgdG8gZXh0cmFjdCB0aGUgbWFwIGZpbGVzIQoKVGhlIHJlcXVpcmVkIGFuZCBhdmFpbGFibGUgc3BhY2UgYXJlIHNob3duIGluIHRoZSBjb25zb2xlIHdpbmRvdy4KUGxlYXNlIGZyZWUgdXAgc3BhY2Ugb24gdGhpcyBkcml2ZSBvciBtb3ZlIHRoZSBmb2xkZXIgdG8gYW5vdGhlciBkcml2ZSwgdGhlbiBydW4gdGhlIHNjcmlwdCBhZ2Fpbi4="
 set "ERR_BUILD_TITLE=2YHYtNmEINio2YbYp9ihINin2YTYrdiy2YXYqSAvIFBhY2thZ2UgQnVpbGQgRmFpbGVk"
 set "ERR_BUILD_MSG=2K7Yt9ijOiDZgdi02YQg2KfYs9iq2K7Ysdin2Kwg2YXZhNmB2KfYqiDYp9mE2K7YsdmK2LfYqSDYo9mIINio2YbYp9ihINin2YTYrdiy2YXYqSEKCtiq2KPZg9ivINmF2YYg2KPZhiDZhdmE2YHYp9iqIHN3X2JhY2t1cC50YXIg2YggbmF2aV9iYWNrdXAudGFyMSDYutmK2LEg2KrYp9mE2YHYqSAo2KPYudivINiq2K3ZhdmK2YTZh9inINil2YYg2YTYstmFKdiMINmI2YXZhiDZiNis2YjYryDZhdiz2KfYrdipINmD2KfZgdmK2Kkg2LnZhNmJINin2YTZgtix2LXYjCDYq9mFINij2LnYryDYp9mE2YXYrdin2YjZhNipLgrYqtmB2KfYtdmK2YQg2KfZhNiu2LfYoyDZhdi52LHZiNi22Kkg2YHZiiDZhtin2YHYsNipINin2YTYo9mI2KfZhdixLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KRXJyb3I6IE1hcCBmaWxlIGV4dHJhY3Rpb24gb3IgcGFja2FnZSBjcmVhdGlvbiBmYWlsZWQhCgpDaGVjayB0aGF0IHN3X2JhY2t1cC50YXIgYW5kIG5hdmlfYmFja3VwLnRhcjEgYXJlIG5vdCBjb3JydXB0ZWQgKHJlLWRvd25sb2FkIGlmIG5lY2Vzc2FyeSkgYW5kIHRoYXQgZGlzayBzcGFjZSBpcyBzdWZmaWNpZW50LgpEZXRhaWxlZCBlcnJvciBtZXNzYWdlcyBhcmUgZGlzcGxheWVkIGluIHRoZSBjb25zb2xlIHdpbmRvdy4="
-set "INSTR_B64=PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAg2K/ZhNmK2YQg2KrYq9io2YrYqiDYrtix2YrYt9ipINin2YTYtNix2YIg2KfZhNij2YjYs9i3INmE2KPZhti42YXYqSBHZW41VyDYudio2LEgTkVNRVNJUwo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCti02LHYtyDYo9iz2KfYs9mKOgrZitis2Kgg2KPZhiDZitmD2YjZhiBORU1FU0lTINmF2KvYqNiq2KfZiyDZhdiz2KjZgtin2Ysg2LnZhNmJINi02KfYtNipINin2YTYs9mK2KfYsdipICjYsdin2KzYuSDYtdmB2K3YqSDYp9mE2YXYtNix2YjYuSDYudmE2YkgR2l0SHViKS4KCtiu2LfZiNin2Kog2KfZhNiq2KvYqNmK2Kog2YHZiiDYp9mE2LPZitin2LHYqToKMS4g2YLZhSDYqNiq2YfZitim2Kkg2YHZhNin2LQg2YXZitmF2YjYsdmKIChVU0IpINio2YbYuNin2YUg2YXZhNmB2KfYqiBleEZBVCAo2KfZhNij2YHYttmEKSDYo9mIIEZBVDMyLgogICDYqtmG2KjZitmHOiDZhti42KfZhSBGQVQzMiDZhNinINmK2YLYqNmEINmF2YTZgdin2Ysg2YjYp9it2K/Yp9mLINij2YPYqNixINmF2YYgNCDYrNmK2KzYp9io2KfZitiqLgoyLiDYp9mG2LPYriDYrNmF2YrYuSDZhdit2KrZiNmK2KfYqiDYp9mE2YXYrNmE2K8gR2VuNVdfTUVfVVNCX1JlYWR5INmF2KjYp9i02LHYqSDYpdmE2Ykg2KzYsNixINin2YTZgdmE2KfYtCDZhdmK2YXZiNix2Yo6CiAgIC0g2YXZhNmBIE5FTUVTSVMuZGF0YQogICAtINmF2YTZgSB1cGRhdGUuc2gKICAgLSDZhdis2YTYryBuYXZpCjMuINi02LrZhCDYp9mE2LPZitin2LHYqSDZiNin2LTYqNmDINin2YTZgdmE2KfYtCDZhdmK2YXZiNix2Ykg2YHZiiDZhdmG2YHYsCBVU0Ig2KfZhNiu2KfYtCDYqNin2YTYtNin2LTYqSAo2YXZZtZg2LAg2KfZhNmI2LPYp9im2LcpLgo0LiDYs9iq2LjZh9ixINmG2KfZgdiw2Kkg2KfZhNiq2KvYqNmK2Kog2KfZhNiu2KfYtdipINio2YA=\"Execute Gen5W Middle East Map Updater?\"2Iwg2KLYrtiq2LEgWWVzLgo1LiDYp9mG2KrYuNixINmF2YYgMyDYpdmE2YkgNSDYrNmC2KfZgtiMINmI2YTYpyDYqtmG2LLYuSDYp9mE2YHZhNin2LQg2YjZhNinINiq2LfZgdimINin2YTYs9mK2KfYsdipINij2KvZhtin2KEg2YbYs9iuINin2YTZhdmE2YHYp9iqLgo2LiDYudmG2K8g2KfZhNin2YbYqtmH2KfYoSDYs9iq2LnYp9ivINiq2LTYutmK2YQg2KfZhNi02KfYtNipINiq2YTZgtin2KbZitin2Ysg2KjYudivIDUg2KvZiNin2YbZjS4KNy4g2KjYudivINil2LnYp9iv2Kkg2KfZhNiq2LTYutmK2YQg2KfZhtiy2Lkg2KfZhNmB2YTYp9i0INmF2YrZhdmI2LHZitiMINmI2LPZitiq2YUg2KrYutmK2YrYsSDYp9iz2YUgTkVNRVNJUy5kYXRhINil2YTZiSBORU1FU0lTLmRhdGEuaW5zdGFsbGVkINit2KrZiSDZhNinINmK2KrZg9ix2LEg2KfZhNiq2KvYqNmK2KouCgrZhdmE2KfYrdi42KfYqjoKLSDZitiq2YUg2YPYqtin2KjYqSDYs9is2YQg2KfZhNi52YXZhNmK2Kkg2YHYp9mE2YrYp9inINmF2KjYp9i02LHYqSDYudmE2Ykg2KfZhNmB2YTYp9i0INio2KfYs9mFIG1hcF91cGRhdGUubG9nICjZhNinINit2KfYrNipINmE2KfYs9iq2K7Yr9in2YUgYWRiKS4KLSDZhNil2LnYp9iv2Kkg2KfZhNiq2KvYqNmK2Kog2KjYp9mE2YLZiNipOiDYo9mG2LTYpiDZhdmE2YHYp9mLINmB2KfYsdi62KfZiyDYqNin2LPZhSBGT1JDRV9JTlNUQUxMINmB2Yog2KzYsNixINin2YTZgdmE2KfYtNiMINmI2KPYudivINin2LPZhSBORU1FU0lTLmRhdGEuaW5zdGFsbGVkINil2YTZiSBORU1FU0lTLmRhdGEuCg=="
+set "INSTR_B64=PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAg2K/ZhNmK2YQg2KrYq9io2YrYqiDYp9mE2K7Ysdin2KbYtyDZhNij2YbYuNmF2KkgR2VuNVcg2LnYqNixIE5FTUVTSVMgKNmE2YPYp9mB2Kkg2KfZhNmF2YbYp9i32YIpCj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoK2LTYsdi3INij2LPYp9iz2Yo6CtmK2KzYqCDYo9mGINmK2YPZiNmGINmG2LjYp9mFIE5FTUVTSVMg2YXYq9io2KrYp9mLINmF2LPYqNmC2KfZiyDYudmE2Ykg2LTYp9i02Kkg2KfZhNiz2YrYp9ix2KkgKNix2KfYrNi5INmF2LPYqtmI2K/YuSDYp9mE2YXYtNix2YjYuSDYudmE2YkgR2l0SHViKS4KCtiu2LfZiNin2Kog2KfZhNiq2KvYqNmK2Kog2YHZiiDYp9mE2LPZitin2LHYqToKMS4g2YLZhSDYqNiq2YfZitim2Kkg2YHZhNin2LQg2YXZitmF2YjYsdmKIChVU0IpINio2YbYuNin2YUg2YXZhNmB2KfYqiBleEZBVCAo2KfZhNij2YHYttmEKSDYo9mIIEZBVDMyLgogICDYqtmG2KjZitmHOiDZhti42KfZhSBGQVQzMiDZhNinINmK2YLYqNmEINmF2YTZgdin2Kog2YXZgdix2K/YqSDYo9mD2KjYsSDZhdmGIDQg2KzZitis2KfYqNin2YrYqi4KMi4g2KfZhtiz2K4g2KzZhdmK2Lkg2YXYrdiq2YjZitin2Kog2KfZhNmF2KzZhNivIEdlbjVXX01hcF9VU0JfUmVhZHkg2YXYqNin2LTYsdipINil2YTZiSDYrNiw2LEg2KfZhNmB2YTYp9i0INmF2YrZhdmI2LHZijoKICAgLSDZhdmE2YEgTkVNRVNJUy5kYXRhCiAgIC0g2YXZhNmBIHVwZGF0ZS5zaAogICAtINmF2KzZhNivIG5hdmkKMy4g2LTYutmR2YQg2KfZhNiz2YrYp9ix2Kkg2YjYp9i02KjZgyDYp9mE2YHZhNin2LQg2YXZitmF2YjYsdmKINmB2Yog2YXZhtmB2LAgVVNCINin2YTYrtin2LUg2KjYp9mE2LTYp9i02KkgKNmF2YbZgdiwINin2YTZiNiz2KfYpti3KS4KNC4g2LPYqti42YfYsSDZhtin2YHYsNipINin2YTYqtir2KjZitiqINin2YTYrtin2LXYqSDYqNmAICJFeGVjdXRlIEdlbjVXIE1hcCBVcGRhdGVyPyLYjCDYp9iu2KrYsSBZZXMuCjUuINin2YbYqti42LEg2YXZhiAzINil2YTZiSA1INiv2YLYp9im2YLYjCDZiNmE2Kcg2KrYrtmE2Lkg2KfZhNmB2YTYp9i0INmI2YTYpyDYqti32YHYpiDYp9mE2LPZitin2LHYqSDYo9ir2YbYp9ihINmG2LPYriDYp9mE2YXZhNmB2KfYqi4KNi4g2LnZhtivINin2YTYp9mG2KrZh9in2KHYjCDYs9iq2LnYp9ivINiq2LTYutmK2YQg2KfZhNi02KfYtNipINiq2YTZgtin2KbZitin2Ysg2KjYudivIDUg2KvZiNin2YbZjS4KNy4g2KjYudivINil2LnYp9iv2Kkg2KfZhNiq2LTYutmK2YQg2KfZhtiy2Lkg2KfZhNmB2YTYp9i0INmF2YrZhdmI2LHZitiMINmI2LPZitiq2YUg2KrYutmK2YrYsSDYp9iz2YUgTkVNRVNJUy5kYXRhINil2YTZiSBORU1FU0lTLmRhdGEuaW5zdGFsbGVkINit2KrZiSDZhNinINmK2KrZg9ix2LEg2KfZhNiq2KvYqNmK2KouCgrZhdmE2KfYrdi42KfYqjoKLSDZitiq2YUg2YPYqtin2KjYqSDYs9is2YQg2KfZhNi52YXZhNmK2Kkg2K3Zitin2Ysg2YjZhdio2KfYtNix2Kkg2LnZhNmJINin2YTZgdmE2KfYtCDYqNin2LPZhSBtYXBfdXBkYXRlLmxvZyAo2YTYpyDYrdin2KzYqSDZhNin2LPYqtiu2K/Yp9mFIGFkYikuCi0g2YTYpdi52KfYr9ipINin2YTYqtir2KjZitiqINio2KfZhNmC2YjYqTog2KPZhti02KYg2YXZhNmB2KfZiyDZgdin2LHYutin2Ysg2KjYp9iz2YUgRk9SQ0VfSU5TVEFMTCDZgdmKINis2LDYsSDYp9mE2YHZhNin2LTYjCDZiNij2LnYryDYp9iz2YUgTkVNRVNJUy5kYXRhLmluc3RhbGxlZCDYpdmE2YkgTkVNRVNJUy5kYXRhLgo="Execute Gen5W Map Updater?\"2Iwg2KLYrtiq2LEgWWVzLgo1LiDYp9mG2KrYuNixINmF2YYgMyDYpdmE2YkgNSDYrNmC2KfZgtiMINmI2YTYpyDYqtmG2LLYuSDYp9mE2YHZhNin2LQg2YjZhNinINiq2LfZgdimINin2YTYs9mK2KfYsdipINij2KvZhtin2KEg2YbYs9iuINin2YTZhdmE2YHYp9iqLgo2LiDYudmG2K8g2KfZhNin2YbYqtmH2KfYoSDYs9iq2LnYp9ivINiq2LTYutmK2YQg2KfZhNi02KfYtNipINiq2YTZgtin2KbZitin2Ysg2KjYudivIDUg2KvZiNin2YbZjS4KNy4g2KjYudivINil2LnYp9iv2Kkg2KfZhNiq2LTYutmK2YQg2KfZhtiy2Lkg2KfZhNmB2YTYp9i0INmF2YrZhdmI2LHZitiMINmI2LPZitiq2YUg2KrYutmK2YrYsSDYp9iz2YUgTkVNRVNJUy5kYXRhINil2YTZiSBORU1FU0lTLmRhdGEuaW5zdGFsbGVkINit2KrZiSDZhNinINmK2KrZg9ix2LEg2KfZhNiq2KvYqNmK2KouCgrZhdmE2KfYrdi42KfYqjoKLSDZitiq2YUg2YPYqtin2KjYqSDYs9is2YQg2KfZhNi52YXZhNmK2Kkg2YHYp9mE2YrYp9inINmF2KjYp9i02LHYqSDYudmE2Ykg2KfZhNmB2YTYp9i0INio2KfYs9mFIG1hcF91cGRhdGUubG9nICjZhNinINit2KfYrNipINmE2KfYs9iq2K7Yr9in2YUgYWRiKS4KLSDZhNil2LnYp9iv2Kkg2KfZhNiq2KvYqNmK2Kog2KjYp9mE2YLZiNipOiDYo9mG2LTYpiDZhdmE2YHYp9mLINmB2KfYsdi62KfZiyDYqNin2LPZhSBGT1JDRV9JTlNUQUxMINmB2Yog2KzYsNixINin2YTZgdmE2KfYtNiMINmI2KPYudivINin2LPZhSBORU1FU0lTLmRhdGEuaW5zdGFsbGVkINil2YTZiSBORU1FU0lTLmRhdGEuCg=="
 
 set "NEM_SELF=%~f0"
 set "NEM_PS=%TEMP%\nemesis_helper_%RANDOM%.ps1"
 set "PSH=powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%NEM_PS%""
 
 echo ==============================================================================
-echo   Hyundai / Kia / Genesis Gen5W Middle East Map Updater Creator
-echo   Universal Standalone Installer (v5.0 - Direct Script Execution)
+echo   Hyundai / Kia / Genesis Gen5W Cross-Region Map Updater Creator
+echo   Universal Standalone Installer (v5.2 - Any Region Support)
 echo ==============================================================================
 echo.
 
@@ -59,7 +59,7 @@ set "MAP_DIR=%~dp0"
 if "!MAP_DIR:~-1!"=="\" set "MAP_DIR=!MAP_DIR:~0,-1!"
 if not exist "!MAP_DIR!\sw_backup.tar" goto :PROMPT_MAP_FOLDER
 if not exist "!MAP_DIR!\navi_backup.tar1" goto :PROMPT_MAP_FOLDER
-echo [*] Found Middle East map update files in the current folder:
+echo [*] Found map update files in the current folder:
 echo     !MAP_DIR!
 echo.
 goto :CHECK_PERM_AND_SPACE
@@ -68,20 +68,20 @@ goto :CHECK_PERM_AND_SPACE
 color 0E
 echo.
 echo ==============================================================================
-echo [WARN] Middle East map files were NOT found in the current folder.
+echo [WARN] Map update files were NOT found in the current folder.
 echo ==============================================================================
 echo Please select the folder containing sw_backup.tar and navi_backup.tar1
 call :POPUP "%PROMPT_SELECT_TITLE%" "%PROMPT_SELECT_MSG%" Information
 
 :PICK_AGAIN
 set "SELECTED_DIR="
-for /f "usebackq delims=" %%I in (`%PSH% -Action pick -A1 "Select Middle East Map Folder"`) do set "SELECTED_DIR=%%I"
+for /f "usebackq delims=" %%I in (`%PSH% -Action pick -A1 "Select Map Update Folder"`) do set "SELECTED_DIR=%%I"
 if defined SELECTED_DIR (
     set "MAP_DIR=!SELECTED_DIR!"
     goto :VALIDATE_MAP_DIR
 )
 
-echo Drag and drop the Middle East update folder here, or type its path:
+echo Drag and drop the map update folder here, or type its path:
 set "USER_INPUT="
 set /p "USER_INPUT=>> Folder Path: "
 if not defined USER_INPUT goto :ERR_NO_FILES
@@ -130,12 +130,12 @@ echo [*] Detected vehicle model: !MODEL_NAME!
 set "BUILD_ID=build"
 for /f "usebackq delims=" %%B in (`%PSH% -Action buildid`) do set "BUILD_ID=%%B"
 
-set "OUTPUT_DIR=!MAP_DIR!\Gen5W_ME_USB_Ready"
+set "OUTPUT_DIR=!MAP_DIR!\Gen5W_Map_USB_Ready"
 set "NAVI_DIR=!OUTPUT_DIR!\navi"
 
 echo [*] Target USB package folder:
 echo     !OUTPUT_DIR!
-echo [*] Any previous Gen5W_ME_USB_Ready folder will be replaced.
+echo [*] Any previous Gen5W_Map_USB_Ready folder will be replaced.
 echo.
 
 if exist "!OUTPUT_DIR!" rd /s /q "!OUTPUT_DIR!"
@@ -164,8 +164,8 @@ copy /y "!MAP_DIR!\*.md5" "!NAVI_DIR!\" >nul 2>&1
 copy /y "!MAP_DIR!\*.txt" "!NAVI_DIR!\" >nul 2>&1
 
 :: Integrity build ID marker
-%PSH% -Action idfile -A1 "!MODEL_NAME!_!BUILD_ID!" -A2 "!NAVI_DIR!\ME_BUILD_ID"
-if not exist "!NAVI_DIR!\ME_BUILD_ID" goto :ERR_BUILD
+%PSH% -Action idfile -A1 "!MODEL_NAME!_!BUILD_ID!" -A2 "!NAVI_DIR!\MAP_BUILD_ID"
+if not exist "!NAVI_DIR!\MAP_BUILD_ID" goto :ERR_BUILD
 
 echo ------------------------------------------------------------------------------
 echo Step 2 of 3: Creating standalone NEMESIS execution script...
@@ -175,7 +175,7 @@ echo ---------------------------------------------------------------------------
 echo [nemesis]
 echo version=1.0
 echo type=execute
-echo name=Gen5W Middle East Map Updater
+echo name=Gen5W Map Updater
 echo path=update.sh
 ) > "!OUTPUT_DIR!\NEMESIS.data"
 
@@ -190,19 +190,19 @@ echo Step 3 of 3: Creating installation instructions...
 echo ------------------------------------------------------------------------------
 (
 echo ==============================================================================
-echo   Gen5W Middle East Map NEMESIS Installation Guide
+echo   Gen5W Map Updater NEMESIS Installation Guide
 echo   Standalone Execution Mode (v5.0)
 echo ==============================================================================
 echo.
 echo PREREQUISITE: NEMESIS must already be installed on the head unit.
 echo.
 echo 1. Format a USB flash drive as exFAT ^(recommended^) or FAT32.
-echo 2. Copy the CONTENTS of Gen5W_ME_USB_Ready directly to the USB root:
+echo 2. Copy the CONTENTS of Gen5W_Map_USB_Ready directly to the USB root:
 echo      NEMESIS.data
 echo      update.sh
 echo      navi\
 echo 3. Start the car and plug the USB drive into the multimedia USB port.
-echo 4. A prompt appears on screen: "Execute Gen5W Middle East Map Updater?"
+echo 4. A prompt appears on screen: "Execute Gen5W Map Updater?"
 echo    Tap YES.
 echo 5. Wait 3 to 5 minutes. Do NOT unplug the drive or switch the car off.
 echo 6. The unit displays countdown and reboots by itself when complete.
@@ -220,7 +220,7 @@ echo   and rename NEMESIS.data.installed back to NEMESIS.data.
 color 0A
 echo.
 echo ==============================================================================
-echo   SUCCESS - Gen5W Middle East Map USB Package Created Successfully
+echo   SUCCESS - Gen5W Map USB Package Created Successfully
 echo ==============================================================================
 echo.
 echo Package location:
@@ -229,7 +229,7 @@ echo.
 echo Package contents:
 echo   - NEMESIS.data  (Direct script trigger)
 echo   - update.sh     (Standalone root installer script)
-echo   - navi\         (Complete Middle East map database)
+echo   - navi\         (Complete map database)
 echo   - README_INSTRUCTIONS.txt / README_ARABIC.txt
 echo.
 explorer.exe "!OUTPUT_DIR!"
@@ -379,7 +379,7 @@ exit /b 0
 :: ----- Car-side standalone update.sh, Unix LF endings applied on extraction (::SH:) -----
 ::SH:#!/system/bin/sh
 ::SH:# ==============================================================================
-::SH:#   Gen5W Middle East Map Standalone Updater v5.0
+::SH:#   Gen5W Cross-Region Map Standalone Updater v5.2
 ::SH:#   Direct USB Script Execution (type=execute) - No Package Installation Needed
 ::SH:# ==============================================================================
 ::SH:export PATH=/data/nemesis/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
@@ -422,7 +422,7 @@ exit /b 0
 ::SH:}
 ::SH:
 ::SH:echo "==============================================================================" > "$LOGFILE"
-::SH:echo "  Hyundai / Kia / Genesis Gen5W Middle East Map Installation Log" >> "$LOGFILE"
+::SH:echo "  Hyundai / Kia / Genesis Gen5W Cross-Region Map Installation Log" >> "$LOGFILE"
 ::SH:echo "==============================================================================" >> "$LOGFILE"
 ::SH:log "=== [START] Map update initiated at $(date) ==="
 ::SH:log "[INFO] USB Root: $USB_ROOT"
@@ -464,15 +464,15 @@ exit /b 0
 ::SH:fi
 ::SH:
 ::SH:NEW_ID=""
-::SH:if [ -f "$MAP_SRC/ME_BUILD_ID" ]; then
-::SH:    NEW_ID=$(cat "$MAP_SRC/ME_BUILD_ID")
+::SH:if [ -f "$MAP_SRC/MAP_BUILD_ID" ]; then
+::SH:    NEW_ID=$(cat "$MAP_SRC/MAP_BUILD_ID")
 ::SH:else
 ::SH:    NEW_ID="build-$(date +%Y%m%d)"
 ::SH:fi
 ::SH:log "[INFO] USB Map Package Build ID: $NEW_ID"
 ::SH:
 ::SH:# 3. Check existing installation integrity on head unit
-::SH:COMPLETE_MARKER="$NAVI/ME_INSTALL_COMPLETE"
+::SH:COMPLETE_MARKER="$NAVI/MAP_INSTALL_COMPLETE"
 ::SH:IS_ALREADY_INSTALLED=0
 ::SH:
 ::SH:if [ -f "$COMPLETE_MARKER" ]; then
@@ -480,7 +480,7 @@ exit /b 0
 ::SH:    log "[INFO] Found completed installation marker. Installed ID: $INSTALLED_ID"
 ::SH:    # Verify that files actually exist and are complete
 ::SH:    if [ -d "$NAVI/DATA/COMMON" ] && [ -d "$NAVI/DATA/NATION" ] && [ -d "$NAVI/BIN" ]; then
-::SH:        for f in "$NAVI"/MES*.md5; do
+::SH:        for f in "$NAVI"/*.md5; do
 ::SH:            if [ -f "$f" ]; then
 ::SH:                IS_ALREADY_INSTALLED=1
 ::SH:                break
@@ -490,11 +490,11 @@ exit /b 0
 ::SH:else
 ::SH:    # Marker is missing! Check if partial files exist from an interrupted install
 ::SH:    if [ -d "$NAVI/DATA" ] || [ -d "$NAVI/BIN" ]; then
-::SH:        log "[WARN] Incomplete or interrupted previous installation detected (ME_INSTALL_COMPLETE missing)!"
+::SH:        log "[WARN] Incomplete or interrupted previous installation detected (MAP_INSTALL_COMPLETE missing)!"
 ::SH:        log "[WARN] The car was likely turned off during a previous update attempt."
 ::SH:        log "[INFO] A clean reinstall will be performed automatically..."
 ::SH:    else
-::SH:        log "[INFO] No previous Middle East map found (first-time installation)."
+::SH:        log "[INFO] No previous map found (first-time installation)."
 ::SH:    fi
 ::SH:fi
 ::SH:
@@ -504,9 +504,9 @@ exit /b 0
 ::SH:fi
 ::SH:
 ::SH:if [ "$IS_ALREADY_INSTALLED" -eq 1 ] && [ "$INSTALLED_ID" = "$NEW_ID" ]; then
-::SH:    log "[INFO] This exact Middle East map is ALREADY completely installed and verified."
+::SH:    log "[INFO] This exact map package ($REGION_NAME) is ALREADY completely installed and verified."
 ::SH:    log "[INFO] Skipping file copy (preserving flash memory)."
-::SH:    toast "Middle East Map is already up to date!"
+::SH:    toast "$REGION_NAME Map is already up to date!"
 ::SH:    
 ::SH:    # Ensure symlink and permissions are intact
 ::SH:    remount_navi rw 2>/dev/null
@@ -535,7 +535,7 @@ exit /b 0
 ::SH:
 ::SH:# 4. Stop navigation processes
 ::SH:log "[INFO] Stopping navigation processes..."
-::SH:toast "Starting Middle East Map Update (please wait 3-5 min)..."
+::SH:toast "Starting $REGION_NAME Map Update (please wait 3-5 min)..."
 ::SH:am force-stop com.mnsoft.navi 2>/dev/null
 ::SH:am force-stop com.hkmc.navitest 2>/dev/null
 ::SH:am force-stop com.mnsoft.navipopupservice 2>/dev/null
@@ -587,12 +587,12 @@ exit /b 0
 ::SH:fi
 ::SH:
 ::SH:HAS_MD5=0
-::SH:for f in "$NAVI"/MES*.md5; do
+::SH:for f in "$NAVI"/*.md5; do
 ::SH:    [ -f "$f" ] && HAS_MD5=1 && break
 ::SH:done
 ::SH:
 ::SH:if [ "$HAS_MD5" -eq 0 ]; then
-::SH:    log "[WARN] MES*.md5 checksum file missing from copy!"
+::SH:    log "[WARN] Checksum (*.md5) file missing from copy!"
 ::SH:fi
 ::SH:
 ::SH:if [ "$VERIFY_OK" -eq 0 ]; then
@@ -648,7 +648,7 @@ exit /b 0
 ::SH:fi
 ::SH:
 ::SH:log "=============================================================================="
-::SH:log "=== [SUCCESS] Middle East Map installation completed successfully! ==="
+::SH:log "=== [SUCCESS] $REGION_NAME Map installation completed successfully! ==="
 ::SH:log "=============================================================================="
 ::SH:sync; sync
 ::SH:
